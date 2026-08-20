@@ -1,0 +1,2890 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Omnicons — Nhà & Nội thất</title>
+  <style>
+    :root {
+      --navy: #060e1a;
+      --navy2: #0a1628;
+      --card: #0f1c2e;
+      --card2: #132337;
+      --gold: #d4af37;
+      --gold2: #f0d77b;
+      --gold3: #b8962e;
+      --gold-deep: #b8901a;
+      --gold-soft: rgba(212, 175, 55, 0.12);
+      --text: #f5f0e6;
+      --muted: #c4bdb3;
+      --border: rgba(212, 175, 55, 0.2);
+      --shadow: 0 18px 42px rgba(0, 0, 0, 0.32);
+      --max: 1280px;
+    }
+
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg,
+          var(--navy) 0%,
+          #0a1424 40%,
+          #0c1828 100%);
+      color: var(--text);
+      font:
+        15px/1.6 Inter,
+        "Segoe UI",
+        system-ui,
+        sans-serif;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: auto;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .gold {
+      color: var(--gold);
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(6, 14, 26, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+    }
+
+    .header-row {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .brand img {
+      height: 32px;
+      width: auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-item,
+    .nav-button {
+      position: relative;
+      border: 0;
+      background: none;
+      color: var(--text);
+      padding: 9px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+      transition: 0.22s ease;
+    }
+
+    .nav-item::after,
+    .nav-button::after {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 2px;
+      height: 2px;
+      background: linear-gradient(90deg,
+          transparent,
+          var(--gold),
+          transparent);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.22s ease;
+    }
+
+    .nav-item:hover,
+    .nav-button:hover,
+    .nav-item.active,
+    .nav-button.active {
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.06);
+    }
+
+    .nav-item:hover::after,
+    .nav-button:hover::after,
+    .nav-item.active::after,
+    .nav-button.active::after {
+      transform: scaleX(1);
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 260px;
+      background: rgba(10, 24, 38, 0.96);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 8px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .dropdown-menu button {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: none;
+      color: var(--muted);
+      padding: 11px 12px;
+      border-radius: 10px;
+      transition: 0.2s ease;
+    }
+
+    .dropdown-menu button:hover {
+      background: rgba(212, 175, 55, 0.08);
+      color: var(--gold);
+      transform: translateX(2px);
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg,
+          rgba(18, 31, 48, 0.95),
+          rgba(14, 23, 35, 0.9));
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-weight: 700;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 8px 18px rgba(0, 0, 0, 0.18);
+      transition: 0.22s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(212, 175, 55, 0.55);
+      box-shadow: 0 12px 24px rgba(212, 175, 55, 0.12);
+    }
+
+    .btn-gold {
+      border: 0;
+      background: linear-gradient(135deg,
+          var(--gold2),
+          var(--gold),
+          var(--gold3));
+      color: var(--navy);
+      box-shadow:
+        0 14px 28px rgba(212, 175, 55, 0.28),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-gold:hover {
+      filter: brightness(1.03);
+      transform: translateY(-1px) scale(1.01);
+    }
+
+    .menu-btn {
+      display: none;
+      border: 0;
+      background: none;
+      color: var(--text);
+      font-size: 24px;
+    }
+
+    .mobile-nav {
+      display: none;
+      border-top: 1px solid var(--border);
+      padding: 10px 16px 18px;
+    }
+
+    .mobile-nav.open {
+      display: block;
+    }
+
+    .mobile-link,
+    .mobile-group>button {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: none;
+      color: var(--text);
+      padding: 12px 0;
+      border-bottom: 1px solid #ffffff14;
+    }
+
+    .mobile-sub {
+      padding-left: 16px;
+    }
+
+    .mobile-sub button {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: none;
+      color: var(--muted);
+      padding: 9px 0;
+    }
+
+    .breadcrumb {
+      position: sticky;
+      top: 60px;
+      z-index: 0;
+      background: var(--card2);
+      border-bottom: 1px solid #ffffff12;
+    }
+
+    .breadcrumb-row {
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .breadcrumb button {
+      border: 0;
+      background: none;
+      color: var(--muted);
+      padding: 0;
+    }
+
+    .breadcrumb .current {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    main {
+      min-height: calc(100vh - 64px);
+    }
+
+    section {
+      padding: 56px 0;
+    }
+
+    .hero {
+      padding: 105px 0;
+      position: relative;
+      overflow: hidden;
+      min-height: 530px;
+    }
+
+    .hero-video-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 530px;
+      overflow: hidden;
+      z-index: 0;
+      opacity: 0.7;
+      background: #0a0a0a;
+    }
+
+    .hero-video-bg iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 530px;
+      border: 0;
+      pointer-events: none;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      background: #0f1c2e33;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 68px);
+      line-height: 0.98;
+      margin: 0 0 18px;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 650px;
+    }
+
+    .hero-img {
+      height: 500px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 22px;
+      box-shadow: 0 30px 70px #0006;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 32px;
+      line-height: 1.1;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #0f1c2ee8, #0a1424f2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px #0006;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .card-body {
+      padding: 18px;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .card:hover {
+      border-color: #d4af3780;
+      transform: translateY(-2px);
+      box-shadow: 0 16px 45px #d4af3718;
+    }
+
+    .tag {
+      display: inline-flex;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 11px;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #0f1c2e99;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      color: var(--gold);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 18px;
+      padding: 16px;
+      border-left: 2px solid var(--gold);
+      background: #0f1c2e80;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .timeline-year {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gold);
+    }
+
+    .service {
+      padding: 24px;
+    }
+
+    .service h3 {
+      margin: 0 0 8px;
+    }
+
+    .process {
+      counter-reset: step;
+    }
+
+    .process-item {
+      position: relative;
+      padding: 22px 22px 22px 70px;
+    }
+
+    .process-item:before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 800;
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .filter {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 8px 15px;
+    }
+
+    .filter.active {
+      background: var(--gold);
+      color: var(--navy);
+      border-color: var(--gold);
+    }
+
+    .news-card .card-img {
+      height: 190px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 30px;
+    }
+
+    .form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      background: #0a1424cc;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    .field textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .office {
+      padding: 18px;
+    }
+
+    .office strong {
+      display: block;
+    }
+
+    .quote-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .quote-panel {
+      padding: 26px;
+    }
+
+    .range {
+      width: 100%;
+      accent-color: var(--gold);
+    }
+
+    .price {
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--gold);
+    }
+
+    .quote-page {
+      padding: 40px 0 48px;
+    }
+
+    .quote-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.96fr);
+      gap: 48px;
+      align-items: start;
+    }
+
+    .quote-title {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .quote-subtitle {
+      font-size: 14px;
+      color: #d4d0c9;
+      margin: 10px 0 0;
+    }
+
+    .quote-controls {
+      margin-top: 32px;
+      padding: 24px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg,
+          rgba(15, 28, 46, 0.9),
+          rgba(12, 19, 30, 0.95));
+      display: grid;
+      gap: 24px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .quote-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .quote-range {
+      width: 100%;
+      margin: 0;
+      appearance: none;
+      -webkit-appearance: none;
+      background: linear-gradient(90deg,
+          rgba(212, 175, 55, 0.9) 0%,
+          rgba(212, 175, 55, 0.7) 50%,
+          rgba(255, 255, 255, 0.12) 50%,
+          rgba(255, 255, 255, 0.12) 100%);
+      height: 6px;
+      border-radius: 999px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .quote-range::-webkit-slider-runnable-track {
+      height: 6px;
+      border-radius: 999px;
+      background: transparent;
+    }
+
+    .quote-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.96);
+      background: radial-gradient(circle at 32% 30%,
+          #fff9d8 0%,
+          #f3df8d 22%,
+          var(--gold) 38%,
+          var(--gold-deep) 100%);
+      box-shadow:
+        0 0 0 6px rgba(212, 175, 55, 0.12),
+        0 8px 18px rgba(0, 0, 0, 0.15);
+      margin-top: -6px;
+    }
+
+    .quote-range::-moz-range-track {
+      height: 6px;
+      border-radius: 999px;
+      background: transparent;
+    }
+
+    .quote-range::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.96);
+      background: radial-gradient(circle at 32% 30%,
+          #fff9d8 0%,
+          #f3df8d 22%,
+          var(--gold) 38%,
+          var(--gold-deep) 100%);
+      box-shadow:
+        0 0 0 6px rgba(212, 175, 55, 0.12),
+        0 8px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    .quote-range-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .floor-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .floor-btn {
+      height: 50px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(11, 18, 28, 0.9);
+      color: var(--text);
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .floor-btn:hover {
+      border-color: rgba(212, 175, 55, 0.8);
+      box-shadow: 0 10px 18px rgba(212, 175, 55, 0.08);
+    }
+
+    .floor-btn.active {
+      background: linear-gradient(135deg,
+          var(--gold2),
+          var(--gold),
+          var(--gold3));
+      border-color: var(--gold);
+      color: var(--navy);
+      box-shadow: 0 12px 28px rgba(212, 175, 55, 0.22);
+    }
+
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .package-btn {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(11, 18, 28, 0.9);
+      color: var(--text);
+      padding: 12px;
+      text-align: left;
+      transition: 0.2s ease;
+    }
+
+    .package-btn:hover {
+      border-color: rgba(212, 175, 55, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .package-btn.active {
+      border-color: var(--gold);
+      background: rgba(201, 162, 39, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.24);
+    }
+
+    .package-name {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .package-price {
+      font-size: 11px;
+      color: #d4d0c9;
+      margin-top: 2px;
+    }
+
+    .quote-summary {
+      position: sticky;
+      top: 84px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: #181818;
+      color: #fff;
+      padding: 28px;
+    }
+
+    .quote-kicker {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      opacity: 0.6;
+    }
+
+    .quote-lines {
+      margin-top: 16px;
+      display: grid;
+      gap: 16px;
+      font-size: 14px;
+    }
+
+    .quote-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .quote-line span:first-child {
+      opacity: 0.7;
+    }
+
+    .quote-vat {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .quote-total-box {
+      margin-top: 24px;
+      background: var(--card);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .quote-total-label {
+      font-size: 12px;
+      color: #d4d0c9;
+    }
+
+    .quote-total {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1.15;
+      margin-top: 4px;
+    }
+
+    .quote-total-vnd {
+      font-size: 12px;
+      color: #d4d0c9;
+      margin-top: 4px;
+    }
+
+    .quote-pdf {
+      margin-top: 16px;
+      width: 100%;
+      height: 44px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 800;
+    }
+
+    .quote-note {
+      font-size: 11px;
+      color: #d4d0c9;
+      margin: 10px 0 0;
+      text-align: center;
+    }
+
+    .quote-guarantee {
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .quote-guarantee-icon {
+      color: var(--gold);
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .quote-metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .quote-metric {
+      border: 1px solid var(--border);
+      background: var(--card2);
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    .quote-metric-label {
+      font-size: 11px;
+      color: #d4d0c9;
+    }
+
+    .quote-metric-value {
+      font-size: 16px;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    .home-quote-btn {
+      margin-top: 40px;
+      width: 100%;
+      max-width: 300px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .hero-quote-btn {
+      background: #0f1c2e;
+      color: #a67c00;
+      border: 0;
+    }
+
+    .hero-quote-btn:hover {
+      background: #091323;
+    }
+
+    .hero-secondary-btn {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: #09132378;
+    }
+
+    .hero-secondary-btn:hover {
+      border-color: #fff;
+    }
+
+    .hero-standards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .hero-standard {
+      border-left: 1px solid rgba(255, 255, 255, 0.2);
+      padding-left: 16px;
+    }
+
+    .hero-standard small {
+      display: block;
+      font-size: 12px;
+      opacity: 0.6;
+    }
+
+    .hero-standard strong {
+      display: block;
+      font-size: 18px;
+      margin-top: 2px;
+    }
+
+    .hero-standard i {
+      display: block;
+      width: 32px;
+      height: 2px;
+      background: #0f1c2e;
+      margin-top: 8px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: #060e1ae8;
+      display: grid;
+      place-items: center;
+      z-index: 200;
+      padding: 20px;
+    }
+
+    .modal-card {
+      width: min(900px, 100%);
+      max-height: 90vh;
+      overflow: auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid #ffffff12;
+    }
+
+    .modal-head button {
+      border: 0;
+      background: none;
+      color: var(--text);
+      font-size: 22px;
+    }
+
+    .modal-img {
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .footer {
+      background: #040a12;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      gap: 28px;
+      padding: 44px 0;
+    }
+
+    .footer h3 {
+      font-size: 14px;
+      margin: 0 0 12px;
+    }
+
+    .footer button {
+      display: block;
+      border: 0;
+      background: none;
+      color: var(--muted);
+      padding: 4px 0;
+      text-align: left;
+    }
+
+    .footer button:hover {
+      color: var(--gold);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #ffffff12;
+      padding: 18px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .loading-placeholder {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(212, 175, 55, 0.1);
+      border-top: 3px solid var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .news-detail-content {
+      padding: 20px 0;
+    }
+
+    .news-detail-content h2 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .news-detail-content .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .news-detail-content .news-body {
+      max-width: 100%;
+      line-height: 1.8;
+    }
+
+    .news-detail-content .news-body img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    .news-detail-content .news-body a {
+      color: var(--gold);
+      text-decoration: underline;
+    }
+
+    .news-detail-content .news-body ul,
+    .news-detail-content .news-body ol {
+      padding-left: 24px;
+    }
+
+    .news-detail-content .news-body h2,
+    .news-detail-content .news-body h3,
+    .news-detail-content .news-body h4 {
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+
+    .news-detail-content .news-body p {
+      margin-bottom: 12px;
+    }
+
+    .news-iframe-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    .news-iframe-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @media (max-width: 1024px) {
+      .nav {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .hero-grid,
+      .contact-grid,
+      .quote-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-img {
+        height: 360px;
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .quote-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .quote-summary {
+        position: static;
+      }
+
+      .hero-standards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head h2 {
+        font-size: 28px;
+      }
+
+      .hero-img {
+        height: 280px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions .btn {
+        display: none;
+      }
+
+      .timeline-item {
+        grid-template-columns: 70px 1fr;
+      }
+
+      .floor-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .package-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quote-metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-standards {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .quote-summary {
+        padding: 20px;
+      }
+
+      .hero-video-bg iframe {
+        min-height: 400px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="loading-placeholder">
+      <div class="loading-spinner"></div>
+      <p style="margin-top:16px;color:var(--muted)">Đang tải dữ liệu...</p>
+    </div>
+  </div>
+  <script>
+    /* ================================================================
+     OMNicons CONTENT CONFIGURATION
+     ================================================================ */
+    const ARCHITECTURE_API_URL =
+      "https://script.google.com/macros/s/AKfycbx9r9-48-_b_dqWOzgg029T48P0-aDVNFWDAbDldGk1-vYS6AK4Kt2l6JN5nXC8dQg/exec";
+
+    const INTERIOR_API_URL =
+      "https://script.google.com/macros/s/AKfycbyswcDZNJDBFsvu_veQcJyDzJtpdb3qLQ2cOwJkOhi_8AUTRhb5gb6nIs9DH04MqL95Kg/exec";
+
+    const NEWS_API_URL =
+      "https://script.google.com/macros/s/AKfycbzOV1xASlClRuUEeZykPPdy0EvM-OQF0qsTQgFx1JzTzmkITsl-0ykIvJ_dZ4HM22xh_A/exec";
+
+    let fetchedArchitecture = [];
+    let fetchedInterior = [];
+    let fetchedNews = [];
+
+    const SITE = {
+      brand: "omnicons",
+      logo: "https://lh3.googleusercontent.com/d/1N9xHMk8Ml8exlMilfspGnlU_-KlyWb72",
+      phone: "1800 93 88",
+      mobile: "0988 123 456",
+      email: "contact@omnicons.vn",
+      address: "123 Nguyễn Trãi, Thanh Xuân, Hà Nội",
+      hours: "8:00 - 18:00 (T2-CN)",
+      hero: {
+        badge: "★ THƯƠNG HIỆU QUỐC GIA 2024",
+        title: "Kiến tạo không gian sống\nđẳng cấp & bền vững",
+        description:
+          "Thiết kế kiến trúc, xây nhà trọn gói và nội thất theo tiêu chuẩn chuyên nghiệp — minh bạch từ bản vẽ đến chìa khóa.",
+        image:
+          "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1200",
+      },
+      stats: [
+        ["30+", "Năm kinh nghiệm"],
+        ["147K+", "Dự án"],
+        ["63", "Tỉnh thành"],
+        ["5000m²", "Nhà máy nội thất"],
+      ],
+      navigation: [
+        { id: "home", label: "Trang chủ" },
+        { id: "about", label: "Giới thiệu" },
+        {
+          label: "Xây nhà trọn gói",
+          children: [
+            { id: "service-intro", label: "Giới thiệu dịch vụ" },
+            { id: "arch-models", label: "Mẫu thiết kế kiến trúc" },
+            { id: "completed", label: "Công trình đã thi công" },
+          ],
+        },
+        {
+          label: "Nội thất",
+          children: [
+            { id: "interior-intro", label: "Giới thiệu dịch vụ" },
+            { id: "interior-models", label: "Mẫu thiết kế nội thất" },
+          ],
+        },
+        {
+          label: "Dự án",
+          children: [{ id: "projects", label: "Dự án đã thực hiện" }],
+        },
+        { id: "news", label: "Tin tức" },
+        { id: "contact", label: "Liên hệ" },
+      ],
+      locations: [
+        ["TP.HCM", "456 Điện Biên Phủ, Q.Bình Thạnh"],
+        ["Đà Nẵng", "78 Bạch Đằng, Hải Châu"],
+        ["Hải Phòng", "12 Lạch Tray, Ngô Quyền"],
+        ["Cần Thơ", "34 Nguyễn Trãi, Ninh Kiều"],
+      ],
+      officesImage:
+        "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000",
+    };
+
+    const IMAGES = [
+      "https://drive.google.com/thumbnail?id=16zUTntSsahvU7J5tsnUqrThqshk1y0WJ&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1C1ZdEdXkDlw1tQHYAoGmhIFmSQNcTc9p&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1JNLSYg3wGaTVUTDRCT8oT5lpL4wX8TO6&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1eK5rZIwj9uzaX4f3398bmrotkfkcau4A&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1h0FGnX_A5LRuxsWp-vXBbVPJoAAn55tK&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1obEOVgDr-2FWSiwDBZL0VxwdVCrouokV&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1uYuflOgO1CSusVF59yIZURmwOFqku4Jf&sz=w1000",
+      "https://drive.google.com/thumbnail?id=17jdCVyTDYGPKN-BfC1-M1Pg-xhfAy0xs&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1936E7sA-fCX8nqOvmIQMpskwq48I6Kn1&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1Y8RWGSH_otO04GKuVzZghMKa70lLSc-P&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1hiv4lSzuPkg98PCmFNjWJhtEbAZu-dxd&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1z5FJieJA6YY2kn0cF9VptgmH3UMKvxtp&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1FmLiom8UIGGx9dpM0SlHJWlYUkogkCSE&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1QxNm_MhaQ46TgSNPuepQg58zDvQhIyBI&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1_i6VPxJwoVmwDuvioCkMbtwOnNuKEdno&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1ewiavlxJG8jeQcDviWYULkiWOHajTjtW&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1jA21n3aXdhXvLOrJx8NhLi8KuIeBYlJy&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1rL2nutid7jfK8-N3ct9s-gWqUHdb1oTy&sz=w1000",
+      "https://drive.google.com/thumbnail?id=11BOYGoSNLSlQbLQ8Z2kSVNGXn4IestIp&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1P7ffiqb8kxrvknDGvo2BSn_PsP4S8G7Y&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1_3EiiXSGaXhYARv9jPuKAO0-g5efxwf5&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1ej7on7GiWcf6VErdHHneKNniGfXDWgcu&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1mcyRLmryE-F52NhRAPulCgfkkBV6yZh5&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1orO9bMrs7ksmrO40_UUhrgZ8VspwIWRm&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1ump-wFDHUCb-WNCu7CjFVuUStlLuSzFk&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1XXdn8IgDCgh9TK9cte_dtX-LMrGWfE7t&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1jgmYjPh8IFOAgMbkQ6FrqyMQQUZMjcXQ&sz=w1000",
+      "https://drive.google.com/thumbnail?id=11CWiNyBNOfYTBFlxzrF8LzADfP-uK2Hd&sz=w1000",
+      "https://drive.google.com/thumbnail?id=135rXB7My6zYpxPmoVhj2sQ-KeT_EbM5u&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1Bt9Sy9tXvrgO8nTq7PDXmtyDVlEBrUgz&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1F5_gnVm9dQZsRBFI2dcY6EhSPhowvX6t&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1FXjLmJnj59b1NdmB0nzsQ60nfQArRdge&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1d8UJG7FmHmSm62dT8030-G5D2ceIyLTy&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1ljMtqfvODpA5ehDOkO6taRiAP9eTFz4O&sz=w1000",
+      "https://drive.google.com/thumbnail?id=17_zRteRIOs-VkZ0RLlfq1p4CPK7o1GtK&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1ByElAawrQIuCqMdoHUdDu4sPVGGyw1xI&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1Gtkk36Kaw6AuwAn4EJRJJuMle8v-D2Rq&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1H7R-XzhVKms2S-UBX532oQcicX4wWs6L&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1ZWD2IQx3nt56sHev-Cff3BS8VVhR4myd&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1pWL4hL7Da6I8WGWluwf8D4DsYQE4GbuZ&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1xQ7IndDy2XKSZury57H8s8xyA0J0q459&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1HwQ1buS0P7UExgwEcDWugNERqInsE9S8&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1MfV8hMnRrGyoujhBgfiVHzGGY8rT4SrR&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1k3e1WNFZ5czl0lOeMkmyMhzP3Y-gsPHQ&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1rym72_APAKGvuxrP1aEC1CBLcXENlqH7&sz=w1000",
+    ];
+
+    const interiorIMAGES = [
+      "https://drive.google.com/thumbnail?id=1eXqDJ07ltjz1Tys8DEDDzkTSGKYkbSac&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1laGFaYCwI6WBz3EBvdM0OReLY7Fj1740&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1XSC7JIyPCr0F-uRT6acxMKYThyh-F5aA&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1yEn-nzYOID1SmZquDaXsNbqa9q7alACM&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1CWVrw-ckx5J3zRmr506CB6Dbpe3hSCMe&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1jcNFEPbkL1bt_d8fJLwetPTjUcX-rrIz&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1hWaen-rsntekhhMf4sCgjavrMg9OariC&sz=w1000",
+      "https://drive.google.com/thumbnail?id=17316P6CIngkuoUZH8Skm2nz72Ow0ZxIB&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1SJHKUBxnphAjfUMXPtGhN24I7ZTbQcee&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1xGo83vdBarlSOzn9XlUk7hhWKRo4Q0t9&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1KAovPIcswC37RIFKuBJ5JCZfaRUkOeJh&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1XET8J2uyRIvgfa95Cll2J0D0tQmalB50&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1ZMWRnFbR9nzj7SBHsfWfmp2eR926AkKH&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1jtuNrb380Xdbkr0YiovIPuTzwm9IhnLe&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1IvzvjrQ99_XTxe6m-YpZBBtyQLBphp_Z&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1zCR55SgZYujs9ssAiOLYKkwH7TIsvzVn&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1D9DLHuvGYsQNMozoJPzcwzq-wPJgJj-O&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1vonvI5PXGDK42W417buy4M3jedvV70nA&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1_hpS1y6x-bX4Cvcqb7lYewYKQI41SpHO&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1rGvC_AA1qg7yYd3BFCsLT2jW6oNLXmGF&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1S2t2ZzLUdYzJLuxaj9JEbM3szdiZpUfC&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1aRqcz0gGe2dQR4BEqSBUBJ7U9ckc2zO-&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1NcGqkX0KRULy49LjSmXPocgvdAXYkbuQ&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1MNgNaCWcli6qhYPbBgBCxJp1lWeP2Iuh&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1MmWFFRyyHYUaroxBIpmvn6vBisFz-qWn&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1FGJirYxOwrBs4lsAsj03inqA5DDTWV9V&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1GVUhp7xnbkhxnhYLmNDKJWTy6t5RBBgQ&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1Lb7-2RqbGoK7ddOsCl83Yb2zSzPiiy5g&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1Q6i4P1mg1xu6hoSSSMXj6lqHDTp9xNrN&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1Qk4QEDqL-2ULijWH6uonGvK0gnJN9Bs3&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1drKotfO3JjPL__t0ZOeULQS77TzHfxjv&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1k67L8e9OqjLLnznLn84pxXWn8B7hWXp0&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1vfNujKAAxdsigTbvF-t8iKIutZbr4DZH&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1-EHw8F9opCCAQr6w2Wyctm9VrOE-6-ME&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1ZlhM19TbnOg_shIIh0RrNP4kHNT4Q8b0&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1_BNHAnfDYoY8T-cRwyAlaIQapJcK53ut&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1GXiB19rWU9twKkpjcM1ct-yhPAJyLlvd&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1fV5QL6wdFrJoyP35poA9kkgl1-3n3Cbp&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1SQ7IiI6BTuVqFJ17Q3llbb1e5bnfaqo-&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1jNukE5mU60PlOTHpTkh-CxMtKFhT-ro7&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1b26iffYwZEeJfxLHP-dw3ziyKLA_zPSb&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1nQ7UyyAoikf0T5exr6AwdyXknxnYMbrS&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1DyXoGMJYrsEkIkNPDEbzngHXEBdU-FSS&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1OXRz6LXdIWOb-VKWRWHXpnihM9RBaLxL&sz=w1000",
+      "https://drive.google.com/thumbnail?id=11mUxyg00x94WlZ09H8rjIa_m1aUkH8iY&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1pfwPvKKa06vGcTtBNEYHQNw1JMNdNkhY&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1qeyFzJ4U_SoUQaXy9ELHo3yjDOGEctMi&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1zftgazzsSwxy_sK9oab39kXbFM1PZUbG&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1q4M4To7ZGjhbSmZ5hZFrrXnV_kOgbqC0&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1QyO9OngiyodkpEcWYPq8D8OYD5icC7uB&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1Z2wt5ZJ-tCFuXvhSuMZofpv7lB-hLgL7&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1dBheIiLAQN-kBrZsS6gWSvtrbsaP71af&sz=w1000",
+      "https://drive.google.com/thumbnail?id=19CYecY0ctA9AIwD5BhiYJRXrurzDFQCU&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1OseHwJNCxWinDx3jyImPgRYttXz0quvb&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1gzpfmMnsIHYsXd0X6cGwUusvAI94LcL1&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1V6jQ3MewcrKocK1HLz5JktWvRlkFeECf&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1s2vgsiBEJT1ncdooNMVAzdKVnADkwPH-&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1cNdCtsU0d3JmF0zJO8j3TZDXIxkpSqnE&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1xOPG7224RyWlDgYOlhhZ_hCK71Su3wG8&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1qDi09816Q8JAYSkZYsz0otk48ATIfwPY&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1jBwh7bjaKVstHOikK0ozcZfWRpNErqtc&sz=w1000",
+      "https://drive.google.com/thumbnail?id=163FsqxAINVqtadTinV8k6myoESAHi5lI&sz=w1000",
+      "https://drive.google.com/thumbnail?id=19nl8g82s-jqiXCIhwYqiAmi9PxxuAWWC&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1NbJFMtKri9HYTp00EFC2Y1PyworxMzVC&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1phRtMRUO7uymBpZ1khFaXqRy7vvmfFxI&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1pyL7FOHKHa5zQoALheN4QKIhH-EfY4Uo&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1rkrfJhL4YT-7UjiQmDDNW14MxnY-eg_g&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1BJyEADc6tiTXZeHKIauoVpVksSW0k-jn&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1Zq6wSivywJTKci9tcVRu2E-62-ThnQBi&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1JANiZwOgrhey0YBx8O_Ktqy-2YPFFr1R&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1riwQkuqRcm0TdXmpm1rjpd39gt4Sys7-&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1UAw_qlqkUi4OmSXoIpRM5431HaoAnRWI&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1lc-DfPaxzQ5V_u2SW_XNpJQ3AaN91_Bm&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1sfG0OvPZnMjmt-T2CORDFKMHFqY_fGmM&sz=w1000",
+      "https://drive.google.com/thumbnail?id=107ZRyHGSMsCSQXATduRGSUVyKxS8VqVA&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1B27-_B9eOSJPy4R2VXaQqtDn_fFtqfqs&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1v1Z_4ZcyaTLs01NhJ_-DCSpVSHRZSsYL&sz=w1000",
+      "https://drive.google.com/thumbnail?id=19-d9hF-uWI5-rZV20e9cm_Pq5_AeqU-T&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1kI4GDI_Jf0b-qrkNzYKXJZ2QekVrr4m9&sz=w1000",
+      "https://drive.google.com/thumbnail?id=13W5zDlpePuyqVVR_3V1ujDu2tWpJRlP0&sz=w1000",
+      "https://drive.google.com/thumbnail?id=18p073upzYusuIKpjxhc3aEYNCBwPuIZo&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1P-EOG-MDJrpn8MWeAMaBkptmXQJVWkDN&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1tlPhpkUmAJPFd3ii-J4sKtSaYkEENdz1&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1pP3QVqAfOc4_6I-xu1kaKnpZI3TI7yoZ&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1jgUK83m9-xAsMbDoVTOUCLZXivbLcDLJ&sz=w1000",
+      "https://drive.google.com/thumbnail?id=15ZM7HlksUQxBbzA5La004JT2RHxC3_6T&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1agksbMJ3gDnD-CeppaAESIdyh8a7J39i&sz=w1000",
+      "https://drive.google.com/thumbnail?id=15uP0pV7xOSv7mMxDGvdEBO0e2DWlPQCX&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1I8eZRtBMpW8FAhqO9dfwB-FCJuxaR6mH&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1nXjxZBBKva9LJNC6KaWG-Cv89U3v4mKl&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1-Kv81CCCEY2-w9Y93qNYfQs6qty4tTCq&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1yE8dfNAvGRcLIuqxH9Ww7DtpNORmSyxH&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1Bd3fNOEBgKyqNGiOQjQzS8PCbn9mru4o&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1NylFxLFymCxF-vE9NVGWgMgYhBz5vm1c&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1RzX8LrE3w1QUSnqaaHhqCabn1bfY180g&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1zPlYwQZIRlnqz7r5ad49ijWF05-h5C6C&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1uY6NtNNc0Pw9EY-73l-DF8wMjp4OhtZ-&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1wgXqc_DMOCUwJPbkhyDPHzvKK0Q_IoGV&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1FWVQyFLyYNsyCxhQVJE9r6bZtA6zNbL4&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1Saeu6BW9CEKoGYC2wDgBz7fj_YEiBHmp&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1fPvQxbuAgbrSXpU7IYXGQBkIEyKeSiP3&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1YoZKcdx23gZ3p8MtPCql6IKHCzWIMOTr&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1EgHBlXZXFW24Yp77IDNf7Rv3VCsi-Edq&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1Wy6yUXc_69KTTPvjTYu-5PhhNzahV2jA&sz=w1000",
+      "https://drive.google.com/thumbnail?id=15O0QifktU1aruhcQbmt6zui0RUmdMn6T&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1dkIP_s_N9eqD8Vt3zLDxVxbswC2ntexu&sz=w1000",
+      "https://drive.google.com/thumbnail?id=11CDp7P4q67QCwwl869M50j6mFq-uKIIy&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1g4iRJBkxhHXraswqPh2sACDioQ0RYync&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1BpmvQpEGYU4hO_GttyYhtvwBdVEZATgN&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1hV-EwZl3mYtotgtIaQj8VScPudePTVVj&sz=w1000",
+      "https://drive.google.com/thumbnail?id=1EDSUbVSklh3bfAseiEpd3zx3rjk5g3Cn&sz=w1000",
+    ];
+
+    const CONTENT = {
+      about: {
+        title: "Giới thiệu Omnicons",
+        intro:
+          "Omnicons phát triển theo định hướng thiết kế đẹp, thi công chuẩn và quản lý chi phí minh bạch.",
+        mission:
+          "Kiến tạo những công trình có giá trị sử dụng lâu dài, cân bằng giữa thẩm mỹ, công năng, kỹ thuật và ngân sách.",
+        values:
+          "Tư vấn trung thực · Thiết kế có trách nhiệm · Thi công kỷ luật · Bàn giao minh bạch.",
+        timeline: [
+          ["1994", "Thành lập xưởng thiết kế đầu tiên, 5 KTS."],
+          ["2008", "Mở rộng thi công trọn gói toàn miền Bắc."],
+          ["2018", "63 tỉnh thành, nhà máy nội thất 5000m²."],
+          ["2024", "147.000 dự án, Top 10 thương hiệu xây dựng."],
+        ],
+      },
+      services: [
+        {
+          title: "Hồ sơ thiết kế",
+          desc: "Kiến trúc, kết cấu, điện nước, 3D nội ngoại thất, dự toán chi tiết.",
+        },
+        {
+          title: "Thi công phần thô",
+          desc: "Móng, cột, dầm, sàn, mái, chống thấm theo tiêu chuẩn kỹ thuật.",
+        },
+        {
+          title: "Hoàn thiện & Nội thất",
+          desc: "Sơn, ốp lát, thiết bị, nội thất liền tường, bàn giao chìa khóa.",
+        },
+      ],
+      process: [
+        "Tiếp nhận nhu cầu",
+        "Khảo sát hiện trạng",
+        "Tư vấn & báo giá",
+        "Ký hợp đồng",
+        "Thiết kế",
+        "Thi công",
+        "Nghiệm thu",
+        "Bàn giao",
+      ],
+      architecture: [],
+      interior: [],
+      news: [],
+      completedCount: 9,
+      projectsCount: 12,
+    };
+
+    const PAGE_META = {
+      home: ["Trang chủ"],
+      about: ["Giới thiệu"],
+      "service-intro": ["Xây nhà trọn gói", "Giới thiệu dịch vụ"],
+      "arch-models": ["Xây nhà trọn gói", "Mẫu thiết kế kiến trúc"],
+      completed: ["Xây nhà trọn gói", "Công trình đã thi công"],
+      "interior-intro": ["Nội thất", "Giới thiệu dịch vụ"],
+      "interior-models": ["Nội thất", "Mẫu thiết kế nội thất"],
+      projects: ["Dự án", "Dự án đã thực hiện"],
+      news: ["Tin tức"],
+      contact: ["Liên hệ"],
+      quote: ["Báo giá"],
+      "news-detail": ["Tin tức", "Chi tiết bài viết"],
+    };
+
+    const state = {
+      page: location.hash.replace("#", "") || "home",
+      mobile: false,
+      dropdown: null,
+      archFilter: "Tất cả",
+      interiorFilter: "Tất cả",
+      modal: null,
+      area: 80,
+      floors: 2,
+      package: "Tiết kiệm",
+      dataLoaded: false,
+      isLoading: true,
+      newsDetail: null,
+    };
+
+    const $ = (s) => document.querySelector(s);
+    const esc = (s) =>
+      String(s).replace(
+        /[&<>'"]/g,
+        (c) =>
+          ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            "'": "&#39;",
+            '"': "&quot;",
+          })[c],
+      );
+
+    function formatDate(dateStr) {
+      if (!dateStr) return "12/05/2024";
+      try {
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return "12/05/2024";
+        const day = String(d.getDate()).padStart(2, "0");
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const year = d.getFullYear();
+        return `${day}/${month}/${year}`;
+      } catch {
+        return "12/05/2024";
+      }
+    }
+
+    function extractExcerpt(html, maxLength = 120) {
+      if (!html) return "";
+      // Strip HTML tags
+      const text = html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+      if (text.length <= maxLength) return text;
+      return text.substring(0, maxLength) + "...";
+    }
+
+    function go(id, data) {
+      if (id === "news-detail" && data) {
+        state.page = "news-detail";
+        state.newsDetail = data;
+      } else if (id === "news") {
+        state.page = "news";
+        state.newsDetail = null;
+      } else {
+        state.page = id;
+        state.newsDetail = null;
+      }
+      state.dropdown = null;
+      state.mobile = false;
+      history.pushState({}, "", `#${id}`);
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    window.addEventListener("popstate", () => {
+      state.page = location.hash.replace("#", "") || "home";
+      state.newsDetail = null;
+      render();
+    });
+
+    function navButton(item) {
+      if (item.children) {
+        const isActive = item.children.some((x) => x.id === state.page);
+        const dropdownMenu =
+          state.dropdown === item.label
+            ? `<div class="dropdown-menu">
+            ${item.children
+              .map((x) => `<button data-go="${x.id}">${esc(x.label)}</button>`)
+              .join("")}
+           </div>`
+            : "";
+
+        return `
+      <div class="dropdown">
+        <button class="nav-button ${isActive ? "active" : ""}" data-drop="${esc(item.label)}">
+          ${esc(item.label)} ▾
+        </button>
+        ${dropdownMenu}
+      </div>
+    `.trim();
+      }
+
+      const isActive = item.id === state.page;
+      return `<button class="nav-item ${isActive ? "active" : ""}" data-go="${item.id}">${esc(item.label)}</button>`;
+    }
+
+    function header() {
+      const navItems = SITE.navigation.map(navButton).join("");
+
+      const mobileNavItems = SITE.navigation
+        .map((item) => {
+          if (item.children) {
+            return `
+          <div class="mobile-group">
+            <button data-mobile-group="${esc(item.label)}">${esc(item.label)} ▾</button>
+            <div class="mobile-sub">
+              ${item.children
+                .map(
+                  (x) => `<button data-go="${x.id}">${esc(x.label)}</button>`,
+                )
+                .join("")}
+            </div>
+          </div>
+        `;
+          }
+          return `<button class="mobile-link" data-go="${item.id}">${esc(item.label)}</button>`;
+        })
+        .join("");
+
+      return `
+    <header class="header">
+      <div class="container header-row">
+        <button class="brand" data-go="home">
+          ${SITE.logo ? `<img src="${SITE.logo}" alt="${esc(SITE.brand)}">` : ""}
+          <span>${esc(SITE.brand)}</span>
+        </button>
+        <nav class="nav">${navItems}</nav>
+        <div class="actions">
+          <button class="btn btn-gold" data-go="quote">☎ ${esc(SITE.phone)} · Báo giá</button>
+          <button class="menu-btn" data-mobile>☰</button>
+        </div>
+      </div>
+      <div class="mobile-nav ${state.mobile ? "open" : ""}">
+        ${mobileNavItems}
+        <button class="btn btn-gold" style="width:100%;margin-top:12px" data-go="quote">
+          ${esc(SITE.phone)} · Báo giá
+        </button>
+      </div>
+    </header>
+  `.trim();
+    }
+
+    function breadcrumb() {
+      if (state.page === "home") return "";
+
+      let p = PAGE_META[state.page] || [""];
+      if (state.page === "news-detail" && state.newsDetail) {
+        p = ["Tin tức", state.newsDetail.title];
+      }
+      const ancestors = p
+        .slice(0, -1)
+        .map((x) => {
+          if (x === "Tin tức") {
+            return `<span>/</span><button data-go="news" class="muted">${esc(x)}</button>`;
+          }
+          return `<span>/</span><span class="muted">${esc(x)}</span>`;
+        })
+        .join("");
+
+      return `
+    <div class="breadcrumb">
+      <div class="container breadcrumb-row">
+        <button data-go="home">Trang chủ</button>
+        ${ancestors}
+        <span>/</span>
+        <span class="current">${esc(p[p.length - 1])}</span>
+      </div>
+    </div>
+  `.trim();
+    }
+
+    function image(url, alt, cls = "card-img") {
+      if (!url) {
+        return `<div class="${cls}" style="background:linear-gradient(135deg,#1a2a3a,#0a1424);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;min-height:220px;">No image</div>`;
+      }
+      return `<img class="${cls}" loading="lazy" src="${url}" alt="${esc(alt || 'Image')}" onerror="this.style.opacity=.25;this.alt='Image load failed'">`;
+    }
+
+    function cardProject(x, detail = true) {
+      const areaText = x.area
+        ? `<div class="muted">Diện tích: ${esc(x.area)}m²</div>`
+        : "";
+      const ownerText = x.owner
+        ? `<div class="muted">Chủ đầu tư: ${esc(x.owner)}</div>`
+        : "";
+      const addressText = x.address
+        ? `<div class="muted">Địa chỉ: ${esc(x.address)}</div>`
+        : "";
+      const detailBtn = detail
+        ? `<button class="btn" style="margin-top:12px" data-modal='${esc(JSON.stringify(x))}'>Xem chi tiết</button>`
+        : "";
+
+      return `
+    <article class="card" data-card="${x.id || x.name}" data-modal='${esc(JSON.stringify(x))}'>
+      ${image(x.img || x.url, x.name)}
+      <div class="card-body">
+        <span class="tag">${esc(x.type || x.category || "Mẫu")}</span>
+        <h3 style="margin:0 0 5px">${esc(x.name)}</h3>
+        ${areaText}
+        ${ownerText}
+        ${addressText}
+        ${detailBtn}
+      </div>
+    </article>
+  `.trim();
+    }
+
+    function cardInterior(x, detail = true) {
+      const typeOfRoom = x.details?.typeOfRoom || x.type || "Nội thất";
+      const style = x.details?.style || "";
+      const notes = x.details?.notes || "";
+
+      const detailBtn = detail
+        ? `<button class="btn" style="margin-top:12px" data-modal='${esc(JSON.stringify(x))}'>Xem chi tiết</button>`
+        : "";
+
+      return `
+    <article class="card" data-card="${x.id || x.name}" data-modal='${esc(JSON.stringify(x))}'>
+      ${image(x.url, x.name)}
+      <div class="card-body">
+        <span class="tag">${esc(typeOfRoom)}</span>
+        <h3 style="margin:0 0 5px;font-size:14px;">${esc(x.name || "Mẫu nội thất")}</h3>
+        ${notes ? `<div class="muted" style="font-size:12px;margin-bottom:3px;">${esc(notes)}</div>` : ""}
+        ${style ? `<div class="muted" style="font-size:12px;">Phong cách: ${esc(style)}</div>` : ""}
+        ${detailBtn}
+      </div>
+    </article>
+  `.trim();
+    }
+
+    function cardNews(x, index) {
+      const excerpt = x.excerpt || extractExcerpt(x.content, 120);
+      const imgUrl = x.image || IMAGES[index % IMAGES.length];
+      const date = formatDate(x.date);
+
+      // Pass the entire item including url for iframe handling
+      return `
+    <article class="card news-card" data-news='${esc(JSON.stringify(x))}'>
+      ${image(imgUrl, x.title)}
+      <div class="card-body">
+        <span class="tag">KIẾN THỨC · ${date}</span>
+        <h3>${esc(x.title)}</h3>
+        <p class="muted">${esc(excerpt)}</p>
+      </div>
+    </article>
+  `.trim();
+    }
+
+    function home() {
+      const statsList = SITE.stats
+        .map(
+          (s) => `
+        <div class="stat">
+          <strong>${esc(s[0])}</strong>
+          <span>${esc(s[1])}</span>
+        </div>
+      `,
+        )
+        .join("");
+
+      const architectureData =
+        CONTENT.architecture.length > 0
+          ? CONTENT.architecture
+          : Array.from({ length: 6 }, (_, i) => ({
+            name: `Mẫu thiết kế #${i + 1}`,
+            type: "Biệt thự",
+            area: 200 + i * 50,
+            img: IMAGES[i % IMAGES.length],
+            owner: "Chủ đầu tư",
+            address: "Hà Nội",
+          }));
+
+      const featuredArchitecture = architectureData
+        .slice(0, 6)
+        .map((x) => cardProject(x))
+        .join("");
+
+      const servicesList = CONTENT.services
+        .map(
+          (x) => `
+        <article class="card service">
+          <h3>${esc(x.title)}</h3>
+          <p class="muted">${esc(x.desc)}</p>
+        </article>
+      `,
+        )
+        .join("");
+
+      const heroVideo =
+        `<div class="hero-video-bg"><iframe src="https://player.vimeo.com/video/1219197802?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1&autopause=0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>`;
+
+      return `
+    <section class="hero">
+      ${heroVideo}
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">${esc(SITE.hero.badge)}</div>
+          <h1>${esc(SITE.hero.title).replace(/\n/g, "<br>")}</h1>
+          <p>${esc(SITE.hero.description)}</p>
+          <div class="hero-actions">
+            <button class="btn hero-secondary-btn" data-go="quote">Báo giá ngay →</button>
+            <button class="btn hero-secondary-btn" data-go="arch-models">Xem mẫu nhà</button>
+          </div>
+          <div class="hero-standards">
+            <div class="hero-standard"><small>CHUẨN</small><strong>Thiết kế</strong><i></i></div>
+            <div class="hero-standard"><small>CHUẨN</small><strong>Vật liệu</strong><i></i></div>
+            <div class="hero-standard"><small>CHUẨN</small><strong>Thi công</strong><i></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="stats">${statsList}</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="gold">MẪU NHÀ NỔI BẬT</span>
+            <h2>Thiết kế được yêu thích nhất</h2>
+          </div>
+          <button class="btn" data-go="arch-models">Xem tất cả</button>
+        </div>
+        <div class="grid grid-3">${featuredArchitecture}</div>
+        <button class="btn btn-gold home-quote-btn" data-go="quote">Nhận báo giá chi tiết →</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="gold">DỊCH VỤ</span>
+            <h2>Xây nhà trọn gói</h2>
+          </div>
+        </div>
+        <div class="grid grid-3">${servicesList}</div>
+      </div>
+    </section>
+  `.trim();
+    }
+
+    function about() {
+      const a = CONTENT.about;
+
+      const timelineItems = a.timeline
+        .map(
+          (x) => `
+        <div class="timeline-item">
+          <div class="timeline-year">${esc(x[0])}</div>
+          <div>${esc(x[1])}</div>
+        </div>
+      `,
+        )
+        .join("");
+
+      return `
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="gold">GIỚI THIỆU</span>
+            <h2>${esc(a.title)}</h2>
+          </div>
+        </div>
+        <div class="grid grid-2">
+          <article class="card service">
+            <h3>Sứ mệnh</h3>
+            <p class="muted">${esc(a.mission)}</p>
+          </article>
+          <article class="card service">
+            <h3>Giá trị</h3>
+            <p class="muted">${esc(a.values)}</p>
+          </article>
+        </div>
+        <div style="margin-top:40px">
+          <h2>Hành trình phát triển</h2>
+          <div class="timeline" style="margin-top:20px">${timelineItems}</div>
+        </div>
+      </div>
+    </section>
+  `.trim();
+    }
+
+    function serviceIntro() {
+      const servicesList = CONTENT.services
+        .map(
+          (x) => `
+        <article class="card service">
+          <h3>${esc(x.title)}</h3>
+          <p class="muted">${esc(x.desc)}</p>
+        </article>
+      `,
+        )
+        .join("");
+
+      const processList = CONTENT.process
+        .map((x) => `<article class="card process-item">${esc(x)}</article>`)
+        .join("");
+
+      return `
+    <section>
+      <div class="container">
+        <span class="gold">XÂY NHÀ TRỌN GÓI</span>
+        <h2>Quy trình & phạm vi công việc</h2>
+        <p class="muted" style="max-width:800px">${esc(CONTENT.about.intro)}</p>
+        <div class="grid grid-3" style="margin-top:30px">${servicesList}</div>
+        <h2 style="margin-top:50px">Quy trình 8 bước chuẩn Omnicons</h2>
+        <div class="grid grid-4 process" style="margin-top:20px">${processList}</div>
+      </div>
+    </section>
+  `.trim();
+    }
+
+    function archModels() {
+      const architectureData =
+        CONTENT.architecture.length > 0
+          ? CONTENT.architecture
+          : Array.from({ length: 12 }, (_, i) => ({
+            name: `Mẫu thiết kế #${i + 1}`,
+            type: i % 2 === 0 ? "Biệt thự" : "Nhà phố",
+            area: 200 + i * 30,
+            img: IMAGES[i % IMAGES.length],
+            owner: "Chủ đầu tư",
+            address: "Hà Nội",
+          }));
+
+      const types = [
+        "Tất cả",
+        ...new Set(architectureData.map((x) => x.type)),
+      ];
+
+      const list =
+        state.archFilter === "Tất cả"
+          ? architectureData
+          : architectureData.filter((x) => x.type === state.archFilter);
+
+      const filterButtons = types
+        .map(
+          (t) => `
+        <button class="filter ${state.archFilter === t ? "active" : ""}" data-arch-filter="${esc(t)}">
+          ${esc(t)}
+        </button>
+      `,
+        )
+        .join("");
+
+      const cardHtml =
+        list.length > 0
+          ? list.map((x) => cardProject(x)).join("")
+          : `<p class="muted" style="grid-column:1/-1;text-align:center;padding:40px">Không có mẫu thiết kế nào thuộc loại này.</p>`;
+
+      return `
+    <section>
+      <div class="container">
+        <h2>Mẫu thiết kế kiến trúc</h2>
+        <div class="filter-row">${filterButtons}</div>
+        <div class="grid grid-4">${cardHtml}</div>
+      </div>
+    </section>
+  `.trim();
+    }
+
+    function completed() {
+      const completedList = Array.from(
+        { length: CONTENT.completedCount },
+        (_, i) =>
+          cardProject({
+            id: "completed-" + i,
+            name: `Công trình hoàn thành #${i + 1}`,
+            type: "HOÀN THÀNH",
+            area: "Thi công trọn gói",
+            img: IMAGES[i % IMAGES.length],
+            owner: "Chủ đầu tư",
+            address: "Việt Nam",
+          }),
+      ).join("");
+
+      return `
+    <section>
+      <div class="container">
+        <h2>Công trình đã thi công</h2>
+        <p class="muted">Các công trình tiêu biểu đã hoàn thành.</p>
+        <div class="grid grid-3" style="margin-top:28px">${completedList}</div>
+      </div>
+    </section>
+  `.trim();
+    }
+
+    function interiorIntro() {
+      return `
+    <section>
+      <div class="container">
+        <div class="grid grid-2" style="align-items:center">
+          <div>
+            <span class="gold">NỘI THẤT</span>
+            <h2>Thiết kế & thi công nội thất trọn gói</h2>
+            <p class="muted">Từ ý tưởng, vật liệu, sản xuất đến lắp đặt và bàn giao đồng bộ.</p>
+            <button class="btn btn-gold" data-go="interior-models">Xem mẫu nội thất</button>
+          </div>
+          ${image(IMAGES[4], "interior", "hero-img")}
+        </div>
+      </div>
+    </section>
+  `.trim();
+    }
+
+    function interiorModels() {
+      const interiorData =
+        fetchedInterior.length > 0
+          ? fetchedInterior
+          : [];
+
+      const roomTypes = ["Tất cả"];
+      if (interiorData.length > 0) {
+        const types = new Set();
+        interiorData.forEach(item => {
+          const roomType = item.details?.typeOfRoom || "Nội thất";
+          types.add(roomType);
+        });
+        roomTypes.push(...types);
+      } else {
+        roomTypes.push("Phòng khách", "Bếp", "Phòng ngủ");
+      }
+
+      const filterButtons = roomTypes
+        .map(
+          (t) => `
+        <button class="filter ${state.interiorFilter === t ? "active" : ""}" data-int-filter="${esc(t)}">
+          ${esc(t)}
+        </button>
+      `,
+        )
+        .join("");
+
+      let filteredItems = interiorData;
+      if (state.interiorFilter !== "Tất cả") {
+        filteredItems = interiorData.filter(
+          (item) => (item.details?.typeOfRoom || "Nội thất") === state.interiorFilter
+        );
+      }
+
+      if (filteredItems.length === 0 && interiorData.length === 0) {
+        const fallbackItems = interiorIMAGES.slice(0, 8).map((img, i) => ({
+          id: "fallback-" + i,
+          name: `Mẫu nội thất #${i + 1}`,
+          url: img,
+          details: {
+            typeOfRoom: roomTypes[1 + (i % (roomTypes.length - 1))] || "Phòng khách",
+            style: "Hiện đại",
+            notes: "Mẫu thiết kế nội thất",
+          }
+        }));
+
+        let fallbackFiltered = fallbackItems;
+        if (state.interiorFilter !== "Tất cả") {
+          fallbackFiltered = fallbackItems.filter(
+            (item) => (item.details?.typeOfRoom || "Nội thất") === state.interiorFilter
+          );
+        }
+
+        const cardHtml =
+          fallbackFiltered.length > 0
+            ? fallbackFiltered.map((x) => cardInterior(x)).join("")
+            : `<p class="muted" style="grid-column:1/-1;text-align:center;padding:40px">Không có mẫu nội thất nào thuộc loại này.</p>`;
+
+        return `
+    <section>
+      <div class="container">
+        <h2>Mẫu thiết kế nội thất</h2>
+        <div class="filter-row">${filterButtons}</div>
+        <div class="grid grid-4">${cardHtml}</div>
+      </div>
+    </section>
+  `.trim();
+      }
+
+      const cardHtml =
+        filteredItems.length > 0
+          ? filteredItems.map((x) => cardInterior(x)).join("")
+          : `<p class="muted" style="grid-column:1/-1;text-align:center;padding:40px">Không có mẫu nội thất nào thuộc loại này.</p>`;
+
+      return `
+    <section>
+      <div class="container">
+        <h2>Mẫu thiết kế nội thất</h2>
+        <div class="filter-row">${filterButtons}</div>
+        <div class="grid grid-4">${cardHtml}</div>
+      </div>
+    </section>
+  `.trim();
+    }
+
+    function projects() {
+      const projectList = Array.from(
+        { length: CONTENT.projectsCount },
+        (_, i) =>
+          cardProject({
+            id: "project-" + i,
+            name: `Dự án tiêu biểu #${i + 1}`,
+            type: i % 2 ? "Biệt thự" : "Nhà phố",
+            area: "Thiết kế & thi công",
+            img: IMAGES[i % IMAGES.length],
+            owner: "Chủ đầu tư",
+            address: "Việt Nam",
+          }),
+      ).join("");
+
+      return `
+    <section>
+      <div class="container">
+        <h2>Dự án đã thực hiện</h2>
+        <div class="grid grid-3" style="margin-top:28px">${projectList}</div>
+      </div>
+    </section>
+  `.trim();
+    }
+
+    function news() {
+      const newsData = fetchedNews.length > 0 ? fetchedNews : CONTENT.news;
+
+      if (newsData.length === 0) {
+        return `
+    <section>
+      <div class="container">
+        <h2>Tin tức & Kiến thức xây dựng</h2>
+        <p class="muted" style="text-align:center;padding:40px;">Chưa có bài viết nào.</p>
+      </div>
+    </section>
+          `.trim();
+      }
+
+      const newsList = newsData
+        .map((x, i) => cardNews(x, i))
+        .join("");
+
+      return `
+    <section>
+      <div class="container">
+        <h2>Tin tức & Kiến thức xây dựng</h2>
+        <div class="grid grid-3" style="margin-top:28px">${newsList}</div>
+      </div>
+    </section>
+  `.trim();
+    }
+
+    function newsDetail() {
+      if (!state.newsDetail) return news();
+      const x = state.newsDetail;
+      const date = formatDate(x.date);
+
+      // Check if item has a URL for iframe embedding
+      const hasUrl = x.url && x.url.trim() !== "";
+
+      let bodyHtml;
+      if (hasUrl) {
+        // Display as iframe when URL exists
+        bodyHtml = `
+          <div class="news-iframe-wrapper">
+            <iframe 
+              src="${esc(x.url)}" 
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            ></iframe>
+          </div>
+        `;
+      } else {
+        // Use content HTML as before
+        bodyHtml = x.content || "<p>Nội dung đang được cập nhật...</p>";
+
+        // Enhanced: Convert internal links with data-go support
+        bodyHtml = bodyHtml.replace(
+          /<a\s+href="#([^"']+)"([^>]*)>/g,
+          (match, anchor, rest) => {
+            return `<a href="#${anchor}" data-anchor="${anchor}" ${rest} onclick="event.preventDefault(); document.querySelector('[name=\\'${anchor}\\']')?.scrollIntoView({ behavior: 'smooth' }); document.getElementById('${anchor}')?.scrollIntoView({ behavior: 'smooth' });">`;
+          }
+        );
+
+        // Also handle image links that might have anchors
+        bodyHtml = bodyHtml.replace(
+          /<img([^>]*)>/g,
+          (match, attrs) => {
+            return `<img${attrs}>`;
+          }
+        );
+      }
+
+      return `
+      <section>
+        <div class="container news-detail-content" style="color: black; padding: 10px; background-color: white;">
+          <h2>${esc(x.title)}</h2>
+          <div class="meta">${date} · Kiến thức xây dựng</div>
+          <div class="news-body">${bodyHtml}</div>
+          <button class="btn" data-go="news" style="margin-top:24px">← Quay lại tin tức</button>
+        </div>
+      </section>
+      `.trim();
+    }
+
+    function contact() {
+      const locationsList = SITE.locations
+        .map(
+          (x) => `
+        <div class="card office">
+          <strong>${esc(x[0])}</strong>
+          <span class="muted">${esc(x[1])}</span>
+        </div>
+      `,
+        )
+        .join("");
+
+      const officeImage = image(
+        SITE.officesImage,
+        "office",
+        "hero-img",
+      ).replace("hero-img", 'hero-img" style="height:200px;margin-top:14px');
+
+      return `
+    <section>
+      <div class="container contact-grid">
+        <div>
+          <span class="gold">LIÊN HỆ OMNicons</span>
+          <h2>Trao đổi nhu cầu xây dựng</h2>
+          <form 
+            class="card form" 
+            style="padding:22px" 
+            onsubmit="event.preventDefault();alert('Cảm ơn bạn! Chúng tôi sẽ liên hệ sớm.');this.reset()"
+          >
+            <div class="field">
+              <label>Họ tên</label>
+              <input required placeholder="Nguyễn Văn A">
+            </div>
+            <div class="field">
+              <label>Số điện thoại</label>
+              <input required placeholder="0988 123 456">
+            </div>
+            <div class="field">
+              <label>Nội dung</label>
+              <textarea placeholder="Mô tả nhu cầu của bạn"></textarea>
+            </div>
+            <button class="btn btn-gold" type="submit">Gửi yêu cầu tư vấn</button>
+          </form>
+        </div>
+
+        <div>
+          <div class="card office">
+            <h3>Trụ sở chính</h3>
+            <p>${esc(SITE.address)}</p>
+            <p>☎ ${esc(SITE.phone)} · ${esc(SITE.mobile)}</p>
+            <p>✉ ${esc(SITE.email)}</p>
+            <p>⏰ ${esc(SITE.hours)}</p>
+          </div>
+          <div class="grid grid-2" style="margin-top:14px">${locationsList}</div>
+          ${officeImage}
+        </div>
+      </div>
+    </section>
+  `.trim();
+    }
+
+    function quote() {
+      const area = state.area;
+      const floors = state.floors;
+      const packages = {
+        "Tiết kiệm": { key: "modern", price: 5500000, factor: 1 },
+        Khá: { key: "classic", price: 6000000, factor: 1.15 },
+        "Cao cấp": { key: "luxury", price: 7500000, factor: 1.35 },
+      };
+
+      const selected = packages[state.package] || packages["Khá"];
+      const totalArea = area * floors;
+      const base = totalArea * 6000000;
+      const raw = base * selected.factor;
+      const vat = raw * 0.1;
+      const total = raw + vat;
+
+      const rough = raw * 0.55;
+      const finish = raw * 0.35;
+      const interior = raw * 0.1;
+
+      const money = (n) => Math.round(n).toLocaleString("vi-VN") + "đ";
+
+      const floorButtons = [1, 2, 3, 4]
+        .map(
+          (x) => `
+        <button class="floor-btn ${floors === x ? "active" : ""}" data-floors="${x}">
+          ${x} tầng
+        </button>
+      `,
+        )
+        .join("");
+
+      const packageButtons = Object.entries(packages)
+        .map(
+          ([name, p]) => `
+        <button class="package-btn ${state.package === name ? "active" : ""}" data-package="${name}">
+          <div class="package-name">${name}</div>
+          <div class="package-price">${(p.price / 1000000).toFixed(1)}tr/m2</div>
+        </button>
+      `,
+        )
+        .join("");
+
+      return `
+    <section class="quote-page">
+      <div class="container quote-layout">
+        <div>
+          <h1 class="quote-title">Báo giá xây nhà trọn gói</h1>
+          <p class="quote-subtitle">Công thức minh bạch: Tổng diện tích x Đơn giá. Dự toán chi tiết miễn phí.</p>
+          <div class="quote-controls">
+            <div>
+              <label class="quote-label">
+                Diện tích sàn 1 tầng (m2): <span data-area-value>${area}m2</span>
+              </label>
+              <input class="quote-range" type="range" min="40" max="300" value="${area}" data-area>
+              <div class="quote-range-labels">
+                <span>40m2</span>
+                <span>300m2</span>
+              </div>
+            </div>
+
+            <div>
+              <span class="quote-label">Số tầng</span>
+              <div class="floor-grid">${floorButtons}</div>
+            </div>
+
+            <div>
+              <span class="quote-label">Gói vật liệu</span>
+              <div class="package-grid">${packageButtons}</div>
+            </div>
+
+            <div class="quote-metric-grid">
+              <div class="quote-metric">
+                <div class="quote-metric-label">Tổng diện tích</div>
+                <div class="quote-metric-value" data-total-area>${totalArea} m2</div>
+              </div>
+              <div class="quote-metric">
+                <div class="quote-metric-label">Đơn giá</div>
+                <div class="quote-metric-value" data-unit-price>
+                  ${(selected.price / 1000000).toFixed(1)} tr/m2
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="quote-summary">
+            <div class="quote-kicker">DỰ TOÁN CHI TIẾT</div>
+            <div class="quote-lines">
+              <div class="quote-line">
+                <span>Thi công phần thô + nhân công</span>
+                <strong data-rough>${money(rough)}</strong>
+              </div>
+              <div class="quote-line">
+                <span>Hoàn thiện + thiết bị</span>
+                <strong data-finish>${money(finish)}</strong>
+              </div>
+              <div class="quote-line">
+                <span>Nội thất cơ bản</span>
+                <strong data-interior>${money(interior)}</strong>
+              </div>
+              <div class="quote-vat">
+                <strong>VAT 10%</strong>
+                <strong data-vat>${money(vat)}</strong>
+              </div>
+            </div>
+
+            <div class="quote-total-box">
+              <div class="quote-total-label">TỔNG CHI PHÍ DỰ KIẾN</div>
+              <div class="quote-total" data-total-amount>${(total / 1e9).toFixed(2)} tỷ</div>
+              <div class="quote-total-vnd" data-total-price>${money(total)} VNĐ (đã VAT)</div>
+              <button class="quote-pdf" data-go="contact">Nhận báo giá chi tiết PDF</button>
+              <div class="quote-note">*Giá tham khảo, chưa bao gồm móng cọc, đã bao gồm bản vẽ.</div>
+            </div>
+          </div>
+
+          <div class="quote-guarantee">
+            <span class="quote-guarantee-icon">▣</span>
+            <span>Cam kết không phát sinh 10% chi phí, hợp đồng minh bạch, bảo hành 5 năm kết cấu.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  `.trim();
+    }
+
+    function footer() {
+      const groups = [
+        [
+          "Xây nhà trọn gói",
+          ["service-intro", "arch-models", "completed", "quote"],
+        ],
+        [
+          "Nội thất & Dự án",
+          ["interior-intro", "interior-models", "projects", "home"],
+        ],
+        ["Công ty", ["about", "news", "contact"]],
+      ];
+
+      const groupMarkup = groups
+        .map(
+          (g) => `
+        <div>
+          <h3>${esc(g[0])}</h3>
+          ${g[1]
+              .map(
+                (id) =>
+                  `<button data-go="${id}">${esc(PAGE_META[id]?.at(-1) || id)}</button>`,
+              )
+              .join("")}
+        </div>
+      `,
+        )
+        .join("");
+
+      return `
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="brand">${esc(SITE.brand)}</div>
+          <p class="muted">Thiết kế · Xây dựng · Nội thất</p>
+          <p class="muted">
+            ☎ ${esc(SITE.phone)}<br>
+            ✉ ${esc(SITE.email)}
+          </p>
+        </div>
+        ${groupMarkup}
+        <div>
+          <h3>Trụ sở</h3>
+          <p class="muted">${esc(SITE.address)}</p>
+          <p class="muted">${esc(SITE.hours)}</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          © ${new Date().getFullYear()} ${esc(SITE.brand)}. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  `.trim();
+    }
+
+    function modal() {
+      if (!state.modal) return "";
+
+      const x = state.modal;
+
+      const isInterior = x.details && (x.details.typeOfRoom || x.details.style);
+
+      let detailLines = [];
+      if (isInterior) {
+        if (x.details.typeOfRoom) detailLines.push(`Loại phòng: ${esc(x.details.typeOfRoom)}`);
+        if (x.details.style) detailLines.push(`Phong cách: ${esc(x.details.style)}`);
+        if (x.details.notes) detailLines.push(esc(x.details.notes));
+      } else {
+        const areaInfo = x.area ? `Diện tích: ${esc(x.area)}m²` : "";
+        const ownerInfo = x.owner ? `Chủ đầu tư: ${esc(x.owner)}` : "";
+        const addressInfo = x.address ? `Địa chỉ: ${esc(x.address)}` : "";
+        detailLines = [areaInfo, ownerInfo, addressInfo].filter(s => s);
+      }
+
+      const detailText = detailLines.length > 0 ? detailLines.join(" · ") : "Thông tin chi tiết của mẫu thiết kế.";
+
+      return `
+    <div class="modal" data-close-modal>
+      <div class="modal-card">
+        <div class="modal-head">
+          <strong>${esc(x.name || "Chi tiết")}</strong>
+          <button data-close-modal>×</button>
+        </div>
+        ${image(x.img || x.url, x.name || "detail", "modal-img")}
+        <div class="modal-body">
+          <span class="tag">${esc(x.details?.typeOfRoom || x.type || "")}</span>
+          <p class="muted">${detailText}</p>
+          <button class="btn btn-gold" data-go="quote">Báo giá mẫu này</button>
+        </div>
+      </div>
+    </div>
+  `.trim();
+    }
+
+    function page() {
+      if (state.page === "news-detail") {
+        return newsDetail();
+      }
+      switch (state.page) {
+        case "about":
+          return about();
+        case "service-intro":
+          return serviceIntro();
+        case "arch-models":
+          return archModels();
+        case "completed":
+          return completed();
+        case "interior-intro":
+          return interiorIntro();
+        case "interior-models":
+          return interiorModels();
+        case "projects":
+          return projects();
+        case "news":
+          return news();
+        case "contact":
+          return contact();
+        case "quote":
+          return quote();
+        default:
+          return home();
+      }
+    }
+
+    function render() {
+      const title = state.page === "news-detail" && state.newsDetail
+        ? state.newsDetail.title
+        : PAGE_META[state.page]?.at(-1) || "Trang chủ";
+      document.title = `${SITE.brand} — ${title}`;
+      $("#app").innerHTML =
+        header() +
+        breadcrumb() +
+        `<main>${page()}</main>` +
+        footer() +
+        modal();
+      bind();
+    }
+
+    function updateAreaSliderStyle() {
+      const slider = document.querySelector("[data-area]");
+      if (!slider) return;
+      const min = Number(slider.min || 40);
+      const max = Number(slider.max || 300);
+      const value = Number(slider.value || min);
+      const percent = ((value - min) / (max - min)) * 100;
+      slider.style.background = `linear-gradient(90deg, rgba(212,175,55,0.96) 0%, rgba(212,175,55,0.96) ${percent}%, rgba(255,255,255,0.12) ${percent}%, rgba(255,255,255,0.12) 100%)`;
+    }
+
+    function syncQuoteMetrics() {
+      const slider = document.querySelector("[data-area]");
+      if (!slider) return;
+
+      const packages = {
+        "Tiết kiệm": { key: "modern", price: 5500000, factor: 1 },
+        Khá: { key: "classic", price: 6000000, factor: 1.15 },
+        "Cao cấp": { key: "luxury", price: 7500000, factor: 1.35 },
+      };
+      const selected = packages[state.package] || packages["Khá"];
+      const area = Number(state.area || slider.value || 40);
+      const floors = Number(state.floors || 2);
+      const totalArea = area * floors;
+      const base = totalArea * 6000000;
+      const raw = base * selected.factor;
+      const vat = raw * 0.1;
+      const total = raw + vat;
+      const rough = raw * 0.55;
+      const finish = raw * 0.35;
+      const interior = raw * 0.1;
+      const money = (n) => Math.round(n).toLocaleString("vi-VN") + "đ";
+
+      const areaValue = document.querySelector("[data-area-value]");
+      const totalAreaEl = document.querySelector("[data-total-area]");
+      const unitPriceEl = document.querySelector("[data-unit-price]");
+      const roughEl = document.querySelector("[data-rough]");
+      const finishEl = document.querySelector("[data-finish]");
+      const interiorEl = document.querySelector("[data-interior]");
+      const vatEl = document.querySelector("[data-vat]");
+      const totalAmountEl = document.querySelector("[data-total-amount]");
+      const totalPriceEl = document.querySelector("[data-total-price]");
+
+      if (areaValue) areaValue.textContent = `${area}m2`;
+      if (totalAreaEl) totalAreaEl.textContent = `${totalArea} m2`;
+      if (unitPriceEl)
+        unitPriceEl.textContent = `${(selected.price / 1000000).toFixed(1)} tr/m2`;
+      if (roughEl) roughEl.textContent = money(rough);
+      if (finishEl) finishEl.textContent = money(finish);
+      if (interiorEl) interiorEl.textContent = money(interior);
+      if (vatEl) vatEl.textContent = money(vat);
+      if (totalAmountEl)
+        totalAmountEl.textContent = `${(total / 1e9).toFixed(2)} tỷ`;
+      if (totalPriceEl)
+        totalPriceEl.textContent = `${money(total)} VNĐ (đã VAT)`;
+    }
+
+    function bind() {
+      document
+        .querySelectorAll("[data-go]")
+        .forEach((b) => (b.onclick = () => go(b.dataset.go)));
+
+      document.querySelectorAll("[data-news]").forEach((el) => {
+        el.onclick = (e) => {
+          e.stopPropagation();
+          const data = JSON.parse(el.dataset.news);
+          go("news-detail", data);
+        };
+      });
+
+      document.querySelectorAll("[data-modal]").forEach((el) => {
+        el.onclick = (e) => {
+          e.stopPropagation();
+          state.modal = JSON.parse(el.dataset.modal);
+          render();
+        };
+      });
+
+      document.querySelectorAll("[data-drop]").forEach(
+        (b) =>
+        (b.onclick = () => {
+          state.dropdown =
+            state.dropdown === b.dataset.drop ? null : b.dataset.drop;
+          render();
+        }),
+      );
+      document
+        .querySelector("[data-mobile]")
+        ?.addEventListener("click", () => {
+          state.mobile = !state.mobile;
+          render();
+        });
+      document.querySelectorAll("[data-arch-filter]").forEach(
+        (b) =>
+        (b.onclick = () => {
+          state.archFilter = b.dataset.archFilter;
+          render();
+        }),
+      );
+      document.querySelectorAll("[data-int-filter]").forEach(
+        (b) =>
+        (b.onclick = () => {
+          state.interiorFilter = b.dataset.intFilter;
+          render();
+        }),
+      );
+      document.querySelectorAll("[data-package]").forEach(
+        (b) =>
+        (b.onclick = () => {
+          state.package = b.dataset.package;
+          render();
+        }),
+      );
+      const areaSlider = document.querySelector("[data-area]");
+      areaSlider?.addEventListener("input", (e) => {
+        state.area = +e.target.value;
+        updateAreaSliderStyle();
+        syncQuoteMetrics();
+      });
+      updateAreaSliderStyle();
+      syncQuoteMetrics();
+      document.querySelectorAll("[data-floors]").forEach(
+        (b) =>
+        (b.onclick = () => {
+          state.floors = +b.dataset.floors;
+          render();
+        }),
+      );
+      document.querySelectorAll("[data-close-modal]").forEach(
+        (b) =>
+        (b.onclick = (e) => {
+          if (e.target === b || e.target.closest("[data-close-modal]")) {
+            state.modal = null;
+            render();
+          }
+        }),
+      );
+      // Handle anchor links in news content
+      document.querySelectorAll('[data-anchor]').forEach(el => {
+        el.onclick = function (e) {
+          e.preventDefault();
+          const anchor = this.dataset.anchor;
+          // Try multiple ways to find the target element
+          let target = document.getElementById(anchor);
+          if (!target) {
+            target = document.querySelector(`[name="${anchor}"]`);
+          }
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Update URL hash without triggering navigation
+            history.pushState(null, '', `#${anchor}`);
+          }
+        };
+      });
+
+      // Also handle regular hash links that might be in the content
+      document.querySelectorAll('.news-body a[href^="#"]').forEach(el => {
+        if (!el.dataset.anchor) {
+          el.onclick = function (e) {
+            e.preventDefault();
+            const href = this.getAttribute('href');
+            const anchor = href.substring(1);
+            let target = document.getElementById(anchor);
+            if (!target) {
+              target = document.querySelector(`[name="${anchor}"]`);
+            }
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              history.pushState(null, '', `#${anchor}`);
+            }
+          };
+        }
+      });
+    }
+
+    // Fetch architecture data from API
+    async function fetchArchitectureData() {
+      try {
+        const response = await fetch(ARCHITECTURE_API_URL);
+        const data = await response.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+          CONTENT.architecture = data.map((item) => ({
+            id: item.id,
+            name: item.details?.notes || item.name || "Mẫu thiết kế",
+            type: item.details?.typeOfHouse || "Biệt thự",
+            area: item.details?.area || 0,
+            img: item.url || IMAGES[Math.floor(Math.random() * IMAGES.length)],
+            owner: item.details?.owner || "Chủ đầu tư",
+            address: item.details?.addresses || "Việt Nam",
+            url: item.url,
+            details: item.details,
+          }));
+        }
+      } catch (error) {
+        console.error("Failed to fetch architecture data:", error);
+        CONTENT.architecture = Array.from({ length: 12 }, (_, i) => ({
+          name: `Mẫu thiết kế #${i + 1}`,
+          type: i % 2 === 0 ? "Biệt thự" : "Nhà phố",
+          area: 200 + i * 30,
+          img: IMAGES[i % IMAGES.length],
+          owner: "Chủ đầu tư",
+          address: "Hà Nội",
+        }));
+      }
+    }
+
+    // Fetch interior data from API
+    async function fetchInteriorData() {
+      try {
+        const response = await fetch(INTERIOR_API_URL);
+        const data = await response.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+          fetchedInterior = data.map((item) => ({
+            id: item.id,
+            name: item.name || "Mẫu nội thất",
+            type: item.type || "image",
+            url: item.url || interiorIMAGES[Math.floor(Math.random() * interiorIMAGES.length)],
+            details: item.details || {},
+          }));
+        }
+      } catch (error) {
+        console.error("Failed to fetch interior data:", error);
+        fetchedInterior = [];
+      }
+    }
+
+    // Fetch news data from API
+    async function fetchNewsData() {
+      try {
+        const response = await fetch(NEWS_API_URL);
+        const data = await response.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+          fetchedNews = data.map((item) => ({
+            title: item.title || "Bài viết mới",
+            content: item.content || "",
+            url: item.url || "", // Preserve URL for iframe embedding
+            date: item.date || new Date().toString(),
+            excerpt: extractExcerpt(item.content, 120),
+            image: (() => {
+              if (!item.content) return null;
+              const imgMatch = item.content.match(/<img[^>]+src="([^"]+)"/);
+              return imgMatch ? imgMatch[1] : null;
+            })(),
+          }));
+          CONTENT.news = fetchedNews;
+        }
+      } catch (error) {
+        console.error("Failed to fetch news data:", error);
+      }
+    }
+
+    // Initialize - fetch all data sources
+    // async function init() {
+    function init() {
+      // await Promise.all([
+      Promise.all([
+        fetchArchitectureData(),
+        fetchInteriorData(),
+        fetchNewsData()
+      ]);
+      state.isLoading = false;
+      render();
+    }
+
+    init();
+  </script>
+</body>
+
+</html>
